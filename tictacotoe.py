@@ -24,7 +24,7 @@ def game():
         # default starting player is X
         player = 'X'
         
-        # while there are open positions, continue game
+        # while no winning combos are present & there are open positions, continue game
         not_all_x_o = True
         no_winning_combo = True
 
