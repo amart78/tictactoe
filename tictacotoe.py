@@ -13,8 +13,8 @@ def game():
         board_size = len(ttt_board[0])
        
         # Game intro & starting board presentation
-        print("Let's play tic tac toe! Each position on the board is represented by a letter.")
-        print("Please review the game board below & choose your position accordingly. Player X is first!")
+        print("\n\nLet's play tic tac toe! Each position on the board is represented by a letter.")
+        print("Please review the game board below & choose your position accordingly. Player X is first!\n")
         
         for row in ttt_board:
             for val in row:
@@ -25,13 +25,15 @@ def game():
         player = 'X'
         
         # while no winning combos are present & there are open positions, continue game
-        not_all_x_o = True
+        full_game_board = False
         no_winning_combo = True
+        game_turns = 0
 
-        while not_all_x_o == True and no_winning_combo == True:
+        while full_game_board == False and no_winning_combo == True:
 
             # player picks the letter associated with the spot they'd like to choose
-            position = input(f"Player {player}, choose your position: ")
+            position = input(f"\nPlayer {player}, choose your position: ")
+            print("")
             
             # check if chosen position is valid & available
             if position == 'O' or position == 'X' or position == None or position == '':
@@ -66,15 +68,15 @@ def game():
 
         # check game status
             # check for 3 in a row aka winning combo
+            
+            # horizontally
             x = 0
             y = 0
-
             last_val = ''
-            no_winning_combo = True
-
-            # horizontally
+            
             while x < board_size:
                 match_count = 0
+                last_val = ''
 
                 while y < board_size :
 
@@ -83,7 +85,7 @@ def game():
 
                     if match_count == 2:
                         no_winning_combo = False
-                        print(f"Player {player} wins!")
+                        print(f"\nPlayer {player} wins horizontally!")
 
                     last_val = ttt_board[x][y]
                     y+=1
@@ -98,16 +100,17 @@ def game():
 
             while y < board_size:
                 match_count = 0
+                last_val = ''
 
                 while x < board_size:
 
                     if ttt_board[x][y] == 'O' or ttt_board[x][y] == 'X':
                         if ttt_board[x][y] == last_val:
                             match_count += 1
-                    
+                        
                     if match_count == 2:
                         no_winning_combo = False
-                        print(f"Player {player} wins!")
+                        print(f"\nPlayer {player} wins vertically!")
 
                     last_val = ttt_board[x][y]
                     x+=1
@@ -122,6 +125,7 @@ def game():
 
             while x < board_size:
                 match_count = 0
+                last_val = ''
 
                 while y < board_size:
                     
@@ -131,7 +135,7 @@ def game():
 
                     if match_count == 2:
                         no_winning_combo = False
-                        print(f"Player {player} wins!")
+                        print(f"\nPlayer {player} wins diagonally (L to R)!")
 
                     last_val = ttt_board[x][y]
                     x+= 1
@@ -144,6 +148,7 @@ def game():
 
             while x < board_size:
                 match_count = 0
+                last_val = ''
 
                 while y >= 0:
 
@@ -153,22 +158,19 @@ def game():
 
                     if match_count == 2:
                         no_winning_combo = False
-                        print(f"Player {player} wins!")
+                        print(f"\nPlayer {player} wins diagonally (R to L)!")
 
                     last_val = ttt_board[x][y]
                     x+= 1
                     y-= 1
                     
             # check for full game board
-            not_all_x_o = False
+            game_turns += 1
 
-            for list in ttt_board:
-                for val in list:
-                    if val != 'X' and val != 'O':
-                        not_all_x_o = True
-                
-            if not_all_x_o == False:
-                print("Tie game! Play again.")
+            if no_winning_combo == True:
+                if game_turns == 9:
+                   full_game_board = True
+                   print("\nTie game! Play again.")
 
         # switching players
             if player == "X":
